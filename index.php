@@ -77,6 +77,8 @@ function make_blocked_ip_html($label, $range, $type, $varname) {
 } 
 
 function block_country($target_country) {
+    global $country_ban_path;
+    
     $ip_file = new SplFileObject("ips/".lower_trimmed($target_country).".txt");
     $added_lines = PHP_EOL."#c=".$target_country.";start";
     while(!$ip_file -> eof()) {
