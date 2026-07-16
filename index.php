@@ -2,10 +2,10 @@
 // If you want SOME form of authentication, insert a SHA256 hash of your password, that has "ipbanner" added to it.
 // e.g. If I wanted my password to be 'password', I'd type 'passwordipbanner' into the website.
 // NOTE: Please use a randomly generated password
-$password_hash = "7001463469ff2c7efb0850bf9645024c72a02d7adc1d69df6e98dcef20f9e301";
-$country_ban_path = "countries.conf";
-$manual_ban_path = "manual.conf";
-$auto_ban_path = "auto.conf";
+$password_hash = "";
+$country_ban_path = "";
+$manual_ban_path = "";
+$auto_ban_path = "";
 
 function lower_trimmed($str) {
     return strtolower(trim(rtrim($str)));
