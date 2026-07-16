@@ -1,5 +1,5 @@
 # IP-Hammer
-A little PHP page that lets you manage nginx-style IP blocks.
+A little PHP program that lets you manage nginx-style IP blocks.
 
 <details>
 <summary>Screenshot</summary>
