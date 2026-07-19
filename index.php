@@ -131,8 +131,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if($_GET["unblock"] === "country") {
             $file_lines = explode(PHP_EOL, file_get_contents($country_ban_path));
 
-            $start_index = array_search("#c=".lower_trimmed($_POST["country"]).";start");
-            $end_index = array_search("#c=".lower_trimmed($_POST["country"]).";end");
+            $start_index = array_search("#c=".lower_trimmed($_POST["country"]).";start", $file_lines);
+            $end_index = array_search("#c=".lower_trimmed($_POST["country"]).";end", $file_lines);
 
             $new_array = array_splice($file_lines, $start_index, ($end_index-$start_index));
 
