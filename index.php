@@ -133,7 +133,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $processed_lines = "";
             $currently_ignoring = false;
 
-            foreach($file_lines as $line) {
+            foreach(explode(PHP_EOL, $file_lines) as $line) {
                 if(str_starts_with($line, "#c=")) {
                     $data = explode(";", str_replace("#c=", "", $line));
                     $country = $data[0];
