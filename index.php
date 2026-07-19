@@ -79,17 +79,11 @@ function make_blocked_ip_html($label, $range, $type, $varname) {
 function block_country($target_country) {
     global $country_ban_path;
     
-    $ip_file = new SplFileObject("ips/".lower_trimmed($target_country).".txt");
-    $added_lines = PHP_EOL."#c=".$target_country.";start";
-    while(!$ip_file -> eof()) {
-        $line = $ip_file->fgets();
+    $ip_file = lower_trimmed(file_get_contents("ips/".lower_trimmed($target_country).".txt"));
 
-        if(strlen(lower_trimmed($line)) < 7) {
-            continue;
-        }
-        $added_lines = $added_lines.PHP_EOL.lower_trimmed($line)." 1;";
-    }
-    $added_lines = $added_lines.PHP_EOL."#c=".$target_country.";end";
+    $added_lines = "#c=".$target_country.";start";
+    $added_lines = $added_lines.PHP_EOL.$ip_file.PHP_EOL;
+    $added_lines = $added_lines."#c=".$target_country.";end";
 
     file_put_contents($country_ban_path, $added_lines, FILE_APPEND | LOCK_EX);
 }
