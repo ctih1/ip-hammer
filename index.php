@@ -81,7 +81,7 @@ function block_country($target_country) {
     
     $ip_file = lower_trimmed(file_get_contents("ips/".lower_trimmed($target_country).".txt"));
     $ips = explode(PHP_EOL, $ip_file);
-    $ips = array_map(function($item) { return $item." 1;" }, $ips);
+    $ips = array_map(function($item) { return $item." 1;"; }, $ips);
 
     $added_lines = PHP_EOL."#c=".$target_country.";start";
     $added_lines = $added_lines.PHP_EOL.$ip_file.PHP_EOL;
