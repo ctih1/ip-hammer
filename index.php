@@ -281,7 +281,7 @@ if(isset($_GET["countries"])) {
             <button class="destructive" type="submit">Block</button>
         </form>
 
-        <a href="/page.php?countries">View available countries</a>
+        <a href="/index.php?countries">View available countries</a>
 
         <h2 class="mb-0">Manually blocked IP ranges:</h2>
         <ul style="margin-top: 2px">
