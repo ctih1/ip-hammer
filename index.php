@@ -129,33 +129,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if(isset($_GET["unblock"])) {
         if($_GET["unblock"] === "country") {
-            $file_lines = file_get_contents($country_ban_path);
-            $processed_lines = "";
-            $currently_ignoring = false;
+            $file_lines = explode(PHP_EOL, file_get_contents($country_ban_path));
 
-            foreach(explode(PHP_EOL, $file_lines) as $line) {
-                if(str_starts_with($line, "#c=")) {
-                    $data = explode(";", str_replace("#c=", "", $line));
-                    $country = $data[0];
-                    $mode = rtrim($data[1]); // "start" or "stop"
+            $start_index = array_search("#c=".lower_trimmed($_POST["country"]).";start");
+            $end_index = array_search("#c=".lower_trimmed($_POST["country"]).";end");
 
-                    if($mode === "start" && $country == $_POST["country"]) {
-                        $currently_ignoring = true;
-                    }
+            $new_array = array_splice($file_lines, $start_index, ($end_index-$start_index));
 
-                    if($mode === "end") {
-                        if($country == $_POST["country"]) {
-                            $current_country = false;
-                        }
-                    }
-                }
-
-                if(!$currently_ignoring) {
-                    $processed_lines = $processed_lines.$line;
-                }
-            }
-
-            file_put_contents($country_ban_path, trim($lines), LOCK_EX);
+            file_put_contents($country_ban_path, trim(join(PHP_EOL, $new_array)), LOCK_EX);
         } else if($_GET["unblock"] === "range") {
             $new_file = remove_range_from_file($manual_ban_path, $_POST["range"]);
             file_put_contents($manual_ban_path, trim($new_file), LOCK_EX);
