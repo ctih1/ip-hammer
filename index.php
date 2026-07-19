@@ -134,7 +134,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $start_index = array_search("#c=".lower_trimmed($_POST["country"]).";start", $file_lines);
             $end_index = array_search("#c=".lower_trimmed($_POST["country"]).";end", $file_lines);
 
-            $new_array = array_splice($file_lines, $start_index, ($end_index-$start_index-1));
+            $new_array = array_splice($file_lines, $start_index, ($end_index-$start_index+1));
 
             file_put_contents($country_ban_path, trim(join(PHP_EOL, $new_array)), LOCK_EX);
         } else if($_GET["unblock"] === "range") {
