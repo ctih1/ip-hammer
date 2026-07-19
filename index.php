@@ -129,13 +129,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if(isset($_GET["unblock"])) {
         if($_GET["unblock"] === "country") {
-            $file = new SplFileObject($country_ban_path);
-            $lines = "";
+            $file_lines = file_get_contents($country_ban_path);
+            $processed_lines = "";
             $currently_ignoring = false;
 
-            while(!$file -> eof()) {
-                $line = $file->fgets();
-
+            foreach($file_lines as $line) {
                 if(str_starts_with($line, "#c=")) {
                     $data = explode(";", str_replace("#c=", "", $line));
                     $country = $data[0];
@@ -143,19 +141,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                     if($mode === "start" && $country == $_POST["country"]) {
                         $currently_ignoring = true;
-                        continue;
                     }
 
                     if($mode === "end") {
                         if($country == $_POST["country"]) {
                             $current_country = false;
-                            continue;
                         }
                     }
                 }
 
                 if(!$currently_ignoring) {
-                    $lines = $lines.$line;
+                    $processed_lines = $processed_lines.$line;
                 }
             }
 
